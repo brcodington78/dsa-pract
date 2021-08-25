@@ -58,4 +58,25 @@ const uncompress = (s) => {
       return true
     }
   };
+
+  const mostFrequentChar = (s) => {
+    let object = {};
+    let top = 0;
+    let topChar;
+    for( let char of s ) {
+      if (!(char in object)) {
+        object[char] = 1
+      } else {
+        object[char] += 1
+      }
+    }
+    Object.entries(object).forEach(ele => {
+      if (ele[1] > top){
+        top = ele[1];
+        topChar = ele[0]
+      }
+    })
+    return topChar
+  };
+  
   
