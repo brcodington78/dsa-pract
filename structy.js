@@ -17,24 +17,45 @@ const uncompress = (s) => {
     
   };
   
-  uncompress("2c3a1t"); // -> 'ccaaat'
-  
-
   const compress = (s) => {
     let currentL = '';
     let count = 0;
-    let newStr = ''
+    let newStr = []
     
     for(let i = 0; i < s.length; i++){
       count += 1;
       if (s[i] !== s[i + 1] && count !== 1){
-        newStr += `${count}` + s[i]
+        newStr.push(`${count}`,s[i])
         count = 0
       } else if (s[i] !== s[i + 1]) {
-        newStr += s[i]
+        newStr.push(s[i])
         count = 0
       }
     }
-    return newStr
+    return newStr.join('')
+  };
+
+  const anagrams = (s1, s2) => {
+    let object = {}
+    for(let i = 0; i < s1.length; i++){
+      if (object[s1[i]] === undefined){
+        object[s1[i]] = 1
+      } else {
+        object[s1[i]] += 1  
+      }
+      
+    }
+     for(let j = 0; j < s2.length; j++){
+      if (object[s2[j]] === undefined){
+        return false
+      } else {
+        object[s2[j]] -= 1  
+      }
+    }
+    if (Object.values(object).filter(ele => ele !== 0).length !== 0){
+      return false
+    } else {
+      return true
+    }
   };
   
