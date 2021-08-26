@@ -104,4 +104,20 @@ const uncompress = (s) => {
       
     }
   };
+
+  const intersection = (a, b) => {
+    let object = {};
+    let ans = [];
+    for(let i = 0; i < a.length; i++){
+      if(!(a[i] in object)) {
+        object[a[i]] = 1
+      }
+    }
+    for (let j = 0; j < b.length; j++){
+      if (b[j] in object){
+        ans.push(b[j])
+      }
+    }
+    return ans
+  };
   
