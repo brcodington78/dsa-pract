@@ -89,4 +89,19 @@ const uncompress = (s) => {
       }
     }
   };
+
+  const pairProduct = (numbers, targetProduct) => {
+    let object = {}
+    for (let i = 0; i < numbers.length; i++) {
+      let currentNum = numbers[i]
+      let compliment = targetProduct/currentNum
+      
+      if (compliment in object) {
+        return [object[compliment],i ]
+      }
+      
+      object[numbers[i]]= i;
+      
+    }
+  };
   
