@@ -121,3 +121,21 @@ const uncompress = (s) => {
     return ans
   };
   
+  const linkedListValues = (head) => {
+  if (head === null) {
+    return []
+  }
+  let ans = [];
+  ans.push(head.val)
+  console.log('head',head)
+  console.log("head.next",head.next)
+  if (head.next === null) {
+    return [head.val]
+  } else {
+    let recursArr = linkedListValues(head.next)
+    console.log('recurs', recursArr)
+    ans = ans.concat(recursArr)  
+  }
+  
+  return ans
+}
