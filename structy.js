@@ -165,3 +165,15 @@ const fiveSort = (nums) => {
   
     
 };
+
+const sumList = (head) => {
+  let current = head
+  let ans = 0
+  
+  while (current !== null) {
+    ans += current.val
+    current = current.next
+  }
+  
+  return ans
+};
