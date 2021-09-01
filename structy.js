@@ -191,3 +191,18 @@ const linkedListFind = (head, target) => {
   return false
 };
 
+const getNodeValue = (head, index) => {
+  let count = 0;
+  let current = head;
+  while (current !== null) {
+    if(count === index) {
+      console.log('count', count)
+      return current.val
+    } else {
+      current = current.next;
+      count += 1
+      console.log('curent changing and count change', current, count)
+    }
+  }
+  return null
+}
