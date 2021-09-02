@@ -225,3 +225,44 @@ const reverseList = (head) => {
   }
   return prev
 };
+
+const mergeLists = (head1, head2) => {
+  let tail;
+  let head;
+  let next1;
+  let next2;
+  
+  if (head1.val < head2.val) {
+    tail = head1
+    head = head1
+    next1 = head1.next
+    next2 = head2
+  } else {
+    tail = head2;
+    head = head2;
+    next1 = head1;
+    next2 = head2.next;
+  }
+  
+  while (next1 !== null && next2 !== null) {
+    if(next1.val < next2.val) {
+      tail.next = next1;
+      next1 = next1.next;
+      tail = tail.next
+    } else {
+      tail.next = next2;
+      next2 = next2.next;
+      tail = tail.next;
+    }
+  }
+  
+  if (next1 === null) {
+    tail.next = next2
+  }
+  
+  if (next2 === null) {
+    tail.next = next1
+  }
+  
+  return head
+};
