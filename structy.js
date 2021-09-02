@@ -266,3 +266,21 @@ const mergeLists = (head1, head2) => {
   
   return head
 };
+
+const isUnivalueList = (head) => {
+  let uniqueList = [];
+  let current = head;
+  
+  
+  while (current !== null) {
+    if (!uniqueList.includes(current.val)){
+      uniqueList.push(current.val)
+    }
+    current = current.next
+  }
+  
+  if (uniqueList.length === 1) {
+    return true
+  }
+  return false
+};
