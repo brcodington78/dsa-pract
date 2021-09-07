@@ -284,3 +284,26 @@ const isUnivalueList = (head) => {
   }
   return false
 };
+
+const removeNode = (head, targetVal) => {
+  let prev = null;
+  let current = head;
+  let next;
+  let hit = false
+
+  while (current !== null && hit === false) {
+    next = current.next
+    if (current === head && current.val === targetVal) {
+      return current.next
+    }
+    if (current.val === targetVal) {
+      console.log('current', current)
+      console.log('next', next)
+      prev.next = next
+      hit = true
+    }
+    prev = current
+    current = current.next
+  }
+  return head
+};
