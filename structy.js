@@ -341,3 +341,32 @@ const insertNode = (head, value, index) => {
   }
   return head
 };
+
+const createLinkedList = (values) => {
+  let prev = null
+  let current;
+  let head;
+
+  if (values.length === 0) {
+    return null
+  }
+
+  for (let i = 0; i < values.length; i++) {
+    let newNode = new Node(values[i])
+    if (i === 0) {
+      prev = newNode
+      head = newNode
+
+    } else if (i === values.length - 1) {
+      prev.next = newNode
+      newNode.next = null
+      return head
+    } else {
+      prev.next = newNode
+      prev = newNode
+    }
+
+
+  }
+  return head
+};
