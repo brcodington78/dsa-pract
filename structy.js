@@ -307,3 +307,37 @@ const removeNode = (head, targetVal) => {
   }
   return head
 };
+
+class Node {
+  constructor(val) {
+    this.val = val;
+    this.next = null;
+  }
+}
+
+const insertNode = (head, value, index) => {
+  let icounter = 0;
+  let current = head;
+  let prev = null;
+  let newNode = new Node(value);
+
+  if (icounter === 0 && index === 0) {
+    newNode.next = current;
+    return newNode
+  }
+
+  while (current !== null) {
+    if (index === icounter) {
+      prev.next = newNode;
+      newNode.next = current
+    }
+    prev = current
+    current = current.next
+    icounter += 1
+  }
+  if (icounter === index) {
+    prev.next = newNode;
+    return head
+  }
+  return head
+};
