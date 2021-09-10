@@ -309,3 +309,57 @@ const longestStreak = (head) => {
   
   return topStreak
 };
+
+const addLists = (head1, head2) => {
+  let dummyHead = new Node(null)
+  let current0 = dummyHead
+  let current1 = head1;
+  let current2 = head2;
+  let carry = 0;
+  let sum;
+  
+  while (current1 !== null && current2 !== null) {
+    sum = current1.val + current2.val + carry;
+    carry = 0
+    if(sum > 9) {
+      carry = 1
+      sum = sum - 10
+    
+    }
+    current0.next = new Node(sum)
+    current0 = current0.next
+    current1 = current1.next
+    current2 = current2.next
+  }
+  if (current1 !== null && current2 === null){
+    while (current1 !== null) {
+      sum = current1.val + carry;
+      if (sum > 9) {
+        carry = 1
+        sum = sum - 10
+      }
+      current0.next = new Node(sum)
+      current0 = current0.next
+      current1 = current1.next
+    }
+  }
+  
+  if (current1 === null && current2 !== null){
+    while (current2 !== null) {
+      sum = current2.val + carry;
+      if (sum > 9) {
+        carry = 1
+        sum = sum - 10
+      }
+      current0.next = new Node(sum)
+      current0 = current0.next
+      current2 = current2.next
+    }
+  }
+  
+  if (current1 === null && current2 === null && carry !== 0){
+    current0.next = new Node(carry)
+    carry = 0
+  }
+  return dummyHead.next
+};
