@@ -285,6 +285,7 @@ const isUnivalueList = (head) => {
   return false
 };
 
+<<<<<<< HEAD
 const longestStreak = (head) => {
   let counter = 1;
   let topStreak = 0;
@@ -362,4 +363,90 @@ const addLists = (head1, head2) => {
     carry = 0
   }
   return dummyHead.next
+=======
+const removeNode = (head, targetVal) => {
+  let prev = null;
+  let current = head;
+  let next;
+  let hit = false
+
+  while (current !== null && hit === false) {
+    next = current.next
+    if (current === head && current.val === targetVal) {
+      return current.next
+    }
+    if (current.val === targetVal) {
+      console.log('current', current)
+      console.log('next', next)
+      prev.next = next
+      hit = true
+    }
+    prev = current
+    current = current.next
+  }
+  return head
+};
+
+class Node {
+  constructor(val) {
+    this.val = val;
+    this.next = null;
+  }
+}
+
+const insertNode = (head, value, index) => {
+  let icounter = 0;
+  let current = head;
+  let prev = null;
+  let newNode = new Node(value);
+
+  if (icounter === 0 && index === 0) {
+    newNode.next = current;
+    return newNode
+  }
+
+  while (current !== null) {
+    if (index === icounter) {
+      prev.next = newNode;
+      newNode.next = current
+    }
+    prev = current
+    current = current.next
+    icounter += 1
+  }
+  if (icounter === index) {
+    prev.next = newNode;
+    return head
+  }
+  return head
+};
+
+const createLinkedList = (values) => {
+  let prev = null
+  let current;
+  let head;
+
+  if (values.length === 0) {
+    return null
+  }
+
+  for (let i = 0; i < values.length; i++) {
+    let newNode = new Node(values[i])
+    if (i === 0) {
+      prev = newNode
+      head = newNode
+
+    } else if (i === values.length - 1) {
+      prev.next = newNode
+      newNode.next = null
+      return head
+    } else {
+      prev.next = newNode
+      prev = newNode
+    }
+
+
+  }
+  return head
+>>>>>>> f923a612a168722ce277bb11fb5d2653d4392f68
 };
