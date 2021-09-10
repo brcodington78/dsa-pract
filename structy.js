@@ -424,3 +424,24 @@ const addLists = (head1, head2) => {
   }
   return dummyHead.next
 };
+
+const depthFirstValues = (root) => {
+  let stack = [root];
+  let ans = [];
+  
+  
+  while (stack.length !== 0 && root !== null) {
+    let newbie = stack.shift();
+    ans.push(newbie.val)
+    
+    if (newbie.right !== null) {
+      stack.unshift(newbie.right)
+    }
+    if (newbie.left !== null){
+      stack.unshift(newbie.left)
+    }
+  }
+  
+  return ans
+  
+};
