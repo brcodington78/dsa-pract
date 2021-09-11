@@ -452,3 +452,21 @@ const treeIncludes = (root, target) => {
 
   return false;
 };
+
+const treeSum = (root) => {
+  let queue = [root];
+  let sum = 0;
+  let bubba;
+
+  while (queue.length !== 0 && root !== null) {
+    bubba = queue.shift();
+    sum = sum + bubba.val;
+    if (bubba.left) {
+      queue.push(bubba.left);
+    }
+    if (bubba.right) {
+      queue.push(bubba.right);
+    }
+  }
+  return sum;
+};
