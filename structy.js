@@ -470,3 +470,27 @@ const treeSum = (root) => {
   }
   return sum;
 };
+
+const treeMinValue = (root) => {
+  let min = Infinity;
+  let stack = [root];
+  let bubba;
+
+  while (stack.length !== 0 && root !== null) {
+    bubba = stack.pop();
+    if (bubba.val < min) {
+      min = bubba.val;
+    }
+
+    if (bubba.right) {
+      stack.push(bubba.right);
+    }
+
+    if (bubba.left) {
+      stack.push(bubba.left);
+    }
+  }
+
+  return min;
+};
+
