@@ -370,3 +370,22 @@ const createLinkedList = (values) => {
   }
   return head
 };
+
+const breadthFirstValues = (root) => {
+  let queue = [root];
+  let arr = []
+  let newbie;
+
+  while (queue.length !== 0 && root !== null) {
+    newbie = queue.shift();
+    arr.push(newbie.val)
+
+    if (newbie.left !== null) {
+      queue.push(newbie.left)
+    }
+    if (newbie.right !== null) {
+      queue.push(newbie.right)
+    }
+  }
+  return arr
+};
