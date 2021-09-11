@@ -371,21 +371,77 @@ const createLinkedList = (values) => {
   return head
 };
 
-const breadthFirstValues = (root) => {
-  let queue = [root];
-  let arr = []
-  let newbie;
-
-  while (queue.length !== 0 && root !== null) {
-    newbie = queue.shift();
-    arr.push(newbie.val)
-
-    if (newbie.left !== null) {
-      queue.push(newbie.left)
+const addLists = (head1, head2) => {
+  let dummyHead = new Node(null)
+  let current0 = dummyHead
+  let current1 = head1;
+  let current2 = head2;
+  let carry = 0;
+  let sum;
+  
+  while (current1 !== null && current2 !== null) {
+    sum = current1.val + current2.val + carry;
+    carry = 0
+    if(sum > 9) {
+      carry = 1
+      sum = sum - 10
+    
     }
-    if (newbie.right !== null) {
-      queue.push(newbie.right)
+    current0.next = new Node(sum)
+    current0 = current0.next
+    current1 = current1.next
+    current2 = current2.next
+  }
+  if (current1 !== null && current2 === null){
+    while (current1 !== null) {
+      sum = current1.val + carry;
+      if (sum > 9) {
+        carry = 1
+        sum = sum - 10
+      }
+      current0.next = new Node(sum)
+      current0 = current0.next
+      current1 = current1.next
     }
   }
-  return arr
+  
+  if (current1 === null && current2 !== null){
+    while (current2 !== null) {
+      sum = current2.val + carry;
+      if (sum > 9) {
+        carry = 1
+        sum = sum - 10
+      }
+      current0.next = new Node(sum)
+      current0 = current0.next
+      current2 = current2.next
+    }
+  }
+  
+  if (current1 === null && current2 === null && carry !== 0){
+    current0.next = new Node(carry)
+    carry = 0
+  }
+  return dummyHead.next
+};
+
+const depthFirstValues = (root) => {
+  let stack = [root];
+  let ans = [];
+  
+  
+  while (stack.length !== 0 && root !== null) {
+    let newbie = stack.shift();
+    ans.push(newbie.val)
+    
+    if (newbie.right !== null) {
+      stack.unshift(newbie.right)
+    }
+    if (newbie.left !== null){
+      stack.unshift(newbie.left)
+    }
+  }
+  
+  return ans
+  
 };
