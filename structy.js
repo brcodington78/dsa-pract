@@ -426,3 +426,29 @@ const depthFirstValues = (root) => {
 
   return ans;
 };
+
+const treeIncludes = (root, target) => {
+  if (!root) {
+    return false;
+  }
+
+  let stack = [root];
+  let bubba;
+
+  while (stack.length !== 0) {
+    bubba = stack.pop();
+    if (bubba.val === target) {
+      return true;
+    }
+
+    if (bubba.left !== null) {
+      stack.push(bubba.left);
+    }
+
+    if (bubba.right !== null) {
+      stack.push(bubba.right);
+    }
+  }
+
+  return false;
+};
