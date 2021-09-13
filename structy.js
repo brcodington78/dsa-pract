@@ -513,3 +513,25 @@ const maxPathSum = (root) => {
 
 }
 
+const pathFinder = (root, target) => {
+  if (root === null) {
+    return null;
+  }
+
+  if (root.val === target) {
+    return [root.val];
+  }
+
+  let left = pathFinder(root.left, target);
+  let right = pathFinder(root.right, target);
+
+  if (left !== null) {
+    return [root.val].concat(left);
+  }
+
+  if (right !== null) {
+    return [root.val].concat(right);
+  }
+
+  return null;
+};
