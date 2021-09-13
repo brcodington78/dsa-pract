@@ -535,3 +535,25 @@ const pathFinder = (root, target) => {
 
   return null;
 };
+
+
+const treeValueCount = (root, target) => {
+  let count = 0;
+  let stack = [root];
+  let noob;
+
+  while (stack.length !== 0 && root !== null) {
+    noob = stack.pop();
+    if (noob.val === target) {
+      count += 1;
+    }
+
+    if (noob.left) {
+      stack.push(noob.left);
+    }
+    if (noob.right) {
+      stack.push(noob.right);
+    }
+  }
+  return count;
+};
