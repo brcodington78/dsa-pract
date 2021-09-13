@@ -494,3 +494,22 @@ const treeMinValue = (root) => {
   return min;
 };
 
+const maxPathSum = (root) => {
+  if (root.left === null && root.right === null) {
+    return root.val 
+  }
+  
+  if(root.left !== null || root.right !== null) {
+    
+    let left = (root.left === null) ? -Infinity : maxPathSum(root.left);
+    let right = (root.right === null) ? -Infinity : maxPathSum(root.right);
+
+    if (left >= right) {
+      return left + root.val
+    } else {
+      return right + root.val
+    }
+  }
+
+}
+
