@@ -557,3 +557,33 @@ const treeValueCount = (root, target) => {
   }
   return count;
 };
+
+
+const howHigh = (node) => {
+  if (node === null) {
+    return -1
+  }
+  if (node.left === null && node.right === null){
+    return 0
+  }
+  
+  let left = 0
+  let right = 0
+  
+  if (node.left){
+    left = howHigh(node.left);
+  }
+  
+  if (node.right){
+    right = howHigh(node.right);
+  }
+  
+  if (left > right) {
+    return left + 1
+  } else {
+    return right + 1
+  }
+  
+  
+  
+};
