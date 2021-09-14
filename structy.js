@@ -587,3 +587,22 @@ const howHigh = (node) => {
   
   
 };
+
+const bottomRightValue = (root) => {
+  let queue = [root]
+  let noob;
+  
+  while (queue.length !== 0) {
+    noob = queue.pop();
+    if (queue.length === 0 && noob.left === null && noob.right === null){
+      return noob.val
+    }
+    if (noob.left) {
+      queue.unshift(noob.left)
+    }
+    
+    if (noob.right) {
+      queue.unshift(noob.right)
+    }
+  }
+};
