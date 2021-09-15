@@ -557,3 +557,35 @@ const treeValueCount = (root, target) => {
   }
   return count;
 };
+
+const allTreePaths = (root) => {
+  let ans = []
+  let left;
+  let right;
+  if (root.left === null && root.right === null) {
+     return [[root.val]]
+      
+  } 
+  
+  if (root.left !== null) {
+    left = allTreePaths(root.left);
+    console.log('left', left)
+    ans = ans.concat(left)
+  }
+  
+  if (root.right !== null) {
+    right = allTreePaths(root.right);
+    
+    console.log('right', right);
+    ans = ans.concat(right)
+    
+    
+  }
+  console.log('ans',ans)
+  for (let i = 0; i < ans.length;i++) {
+    ans[i].unshift(root.val)
+  }
+  
+  return ans
+  
+};
