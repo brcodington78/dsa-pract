@@ -558,34 +558,51 @@ const treeValueCount = (root, target) => {
   return count;
 };
 
-const allTreePaths = (root) => {
-  let ans = []
-  let left;
-  let right;
-  if (root.left === null && root.right === null) {
-     return [[root.val]]
-      
-  } 
-  
-  if (root.left !== null) {
-    left = allTreePaths(root.left);
-    console.log('left', left)
-    ans = ans.concat(left)
+
+const howHigh = (node) => {
+  if (node === null) {
+    return -1
+  }
+  if (node.left === null && node.right === null){
+    return 0
   }
   
-  if (root.right !== null) {
-    right = allTreePaths(root.right);
-    
-    console.log('right', right);
-    ans = ans.concat(right)
-    
-    
-  }
-  console.log('ans',ans)
-  for (let i = 0; i < ans.length;i++) {
-    ans[i].unshift(root.val)
+  let left = 0
+  let right = 0
+  
+  if (node.left){
+    left = howHigh(node.left);
   }
   
-  return ans
+  if (node.right){
+    right = howHigh(node.right);
+  }
   
+  if (left > right) {
+    return left + 1
+  } else {
+    return right + 1
+  }
+  
+  
+  
+};
+
+const bottomRightValue = (root) => {
+  let queue = [root]
+  let noob;
+  
+  while (queue.length !== 0) {
+    noob = queue.pop();
+    if (queue.length === 0 && noob.left === null && noob.right === null){
+      return noob.val
+    }
+    if (noob.left) {
+      queue.unshift(noob.left)
+    }
+    
+    if (noob.right) {
+      queue.unshift(noob.right)
+    }
+  }
 };
