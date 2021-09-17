@@ -636,3 +636,32 @@ const allTreePaths = (root) => {
   return ans;
 };
 
+const treeLevels = (root) => {
+  if (root === null) {
+    return [];
+  }
+  let stack = [[root, 0]];
+  let ans = [];
+
+  while (stack.length !== 0) {
+    let popped = stack.pop();
+    let level = popped[1];
+    let node = popped[0];
+
+    if (!ans[popped[1]]) {
+      console.log("node", node);
+      ans[level] = [node.val];
+    } else {
+      ans[level].push(node.val);
+    }
+
+    if (node.right !== null) {
+      stack.push([node.right, level + 1]);
+    }
+
+    if (node.left !== null) {
+      stack.push([node.left, level + 1]);
+    }
+  }
+  return ans;
+};
