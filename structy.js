@@ -698,3 +698,24 @@ const levelAverages = (root) => {
 
   return ans;
 };
+
+const leafList = (root) => {
+  if (root === null) return [];
+  let stack = [root];
+  let ans = [];
+
+  while (stack.length) {
+    let poop = stack.pop();
+
+    let left = poop.left;
+    let right = poop.right;
+
+    if (!left && !right) {
+      ans.push(poop.val);
+    }
+
+    if (right) stack.push(right);
+    if (left) stack.push(left);
+  }
+  return ans;
+};
