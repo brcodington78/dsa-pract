@@ -665,3 +665,36 @@ const treeLevels = (root) => {
   }
   return ans;
 };
+
+const levelAverages = (root) => {
+  if (root === null) return [];
+
+  let stack = [{ node: root, level: 0 }];
+  let levels = [];
+  let ans = [];
+
+  while (stack.length !== 0) {
+    const { node, level } = stack.pop();
+    if (!levels[level]) {
+      levels[level] = [node.val];
+    } else {
+      levels[level].unshift(node.val);
+    }
+
+    if (node.right) stack.push({ node: node.right, level: level + 1 });
+    if (node.left) stack.push({ node: node.left, level: level + 1 });
+  }
+
+  for (let i = 0; i < levels.length; i++) {
+    let sum = 0;
+    for (let j = 0; j < levels[i].length; j++) {
+      console.log("number", levels[i][j]);
+      sum += levels[i][j];
+      console.log("sum", sum);
+    }
+    let average = sum / levels[i].length;
+    ans.push(average);
+  }
+
+  return ans;
+};
