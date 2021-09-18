@@ -748,3 +748,23 @@ const hasPath = (graph, src, dst) => {
 
   return false;
 };
+
+const undirectedPath = (edges, nodeA, nodeB) => {
+  let graph = convertGraph(edges);
+
+  let queue = [nodeA];
+  let visited = [];
+
+  while (queue.length !== 0) {
+    let popped = queue.pop();
+    if (popped === nodeB) return true;
+    for (let i = 0; i < graph[popped].length; i++) {
+      let node = graph[popped][i];
+      if (!visited.includes(node)) {
+        visited.push(node);
+        queue.unshift(node);
+      }
+    }
+  }
+  return false;
+};
