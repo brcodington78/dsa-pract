@@ -719,3 +719,32 @@ const leafList = (root) => {
   }
   return ans;
 };
+
+const hasPath = (graph, src, dst) => {
+  if (src === dst) {
+    return true;
+  }
+
+  let stack = [];
+  let visited = [];
+  let srcArr = graph[src];
+  for (let i = 0; i < graph[src].length; i++) {
+    stack.push(graph[src][i]);
+    visited.push(graph[src][i]);
+  }
+
+  while (stack.length !== 0) {
+    let noob = stack.pop();
+    if (noob === dst) {
+      return true;
+    } else {
+      for (let j = 0; j < graph[noob].length; j++) {
+        if (!visited.includes(graph[noob][j])) {
+          stack.push(graph[noob][j]);
+        }
+      }
+    }
+  }
+
+  return false;
+};
