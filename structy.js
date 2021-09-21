@@ -770,6 +770,3 @@ const undirectedPath = (edges, nodeA, nodeB) => {
 };
 
 
-const someRandomCode = () => {
-  console.log('hey here is some code lmao')
-}
