@@ -770,3 +770,34 @@ const undirectedPath = (edges, nodeA, nodeB) => {
 };
 
 
+const connectedComponentsCount = (graph) => {
+  let count = 0;
+  let stack = [];
+  let visited = new Set();
+
+  for (let node in graph) {
+    // let intNode = parseInt(node)
+    if (!visited.has(node)) {
+      stack = [node];
+      visited.add(node);
+      console.log("visited1", visited);
+      while (stack.length !== 0) {
+        let popped = stack.pop();
+        let graphArr = graph[popped];
+        console.log(graphArr, "graphArr");
+        for (let i = 0; i < graphArr.length; i++) {
+          let aNode = graphArr[i];
+          if (!visited.has(String(aNode))) {
+            console.log("parseInt", String(aNode));
+            stack.push(String(aNode));
+            visited.add(String(aNode));
+            console.log("visited2", visited);
+          }
+        }
+      }
+      console.log("visited3", visited);
+      count++;
+    }
+  }
+  return count;
+};
