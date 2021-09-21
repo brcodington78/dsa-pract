@@ -801,3 +801,34 @@ const connectedComponentsCount = (graph) => {
   }
   return count;
 };
+
+const largestComponent = (graph) => {
+  let stack = [];
+  let visited = new Set();
+  let count = 1;
+  let maxCount = 0;
+
+  for (let node in graph) {
+    if (!visited.has(node)) {
+      stack.push(node);
+      visited.add(node);
+      while (stack.length !== 0) {
+        let popped = stack.pop();
+        let graphArr = graph[popped];
+        for (let i = 0; i < graphArr.length; i++) {
+          let strNode = String(graphArr[i]);
+          if (!visited.has(strNode)) {
+            visited.add(strNode);
+            stack.push(strNode);
+            count++;
+          }
+        }
+      }
+      if (count > maxCount) {
+        maxCount = count;
+      }
+      count = 1;
+    }
+  }
+  return maxCount;
+};
