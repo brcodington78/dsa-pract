@@ -832,3 +832,46 @@ const largestComponent = (graph) => {
   }
   return maxCount;
 };
+
+const shortestPath = (edges, nodeA, nodeB) => {
+  let visited = new Set();
+  let queue = [{ node: nodeA, edgeCount: 0 }];
+  let graph = convertToGraph(edges);
+
+  while (queue.length !== 0) {
+    let popped = queue.pop();
+    let { node, edgeCount } = popped;
+    if (node === nodeB) {
+      return edgeCount;
+    }
+
+    for (let i = 0; i < graph[node].length; i++) {
+      let newNode = graph[node][i];
+      if (!visited.has(newNode)) {
+        if (newNode === nodeB) {
+          return edgeCount + 1;
+        } else {
+          visited.add(newNode);
+          queue.unshift({ node: newNode, edgeCount: edgeCount + 1 });
+        }
+      }
+    }
+  }
+
+  return -1;
+};
+
+const convertToGraph = (edges) => {
+  let graph = {};
+
+  for (let edge of edges) {
+    let [first, second] = edge;
+
+    if (!(first in graph)) graph[first] = [];
+    if (!(second in graph)) graph[second] = [];
+
+    graph[first].push(second);
+    graph[second].push(first);
+  }
+  return graph;
+};
