@@ -875,3 +875,37 @@ const convertToGraph = (edges) => {
   }
   return graph;
 };
+
+
+const islandCount = (grid) => {
+  let visited = new Set();
+  let count = 0;
+
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid[i].length; j++) {
+      if (explore(grid, i, j, visited) === true) count++;
+    }
+  }
+  return count;
+};
+
+const explore = (grid, r, c, visited) => {
+  const rBound = 0 <= r && r < grid.length;
+  const cBound = 0 <= c && c < grid[0].length;
+
+  if (rBound === false || cBound === false) return false;
+
+  if (grid[r][c] === "W") return false;
+
+  let pos = r + "," + c;
+
+  if (visited.has(pos)) return false;
+  visited.add(pos);
+
+  explore(grid, r + 1, c, visited);
+  explore(grid, r - 1, c, visited);
+  explore(grid, r, c + 1, visited);
+  explore(grid, r, c - 1, visited);
+
+  return true;
+};
