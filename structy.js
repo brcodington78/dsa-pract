@@ -909,3 +909,36 @@ const explore = (grid, r, c, visited) => {
 
   return true;
 };
+
+const minimumIsland = (grid) => {
+  let minCount = Infinity;
+  let visited = new Set();
+
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid[0].length; j++) {
+      newCount = explore(grid, i, j, visited);
+      console.log(newCount, "newCount");
+      if (newCount < minCount && newCount !== 0) minCount = newCount;
+    }
+  }
+  return minCount;
+};
+
+const explore = (grid, i, j, visited) => {
+  let rowBound = 0 <= i && i < grid.length;
+  let columnBound = 0 <= j && j < grid[0].length;
+
+  if (visited.has(`${i},${j}`)) return 0;
+  if (!rowBound || !columnBound) return 0;
+  if (grid[i][j] === "W") return 0;
+  visited.add(`${i},${j}`);
+
+  count = 1;
+
+  count += explore(grid, i + 1, j, visited);
+  count += explore(grid, i - 1, j, visited);
+  count += explore(grid, i, j - 1, visited);
+  count += explore(grid, i, j + 1, visited);
+
+  return count;
+};
