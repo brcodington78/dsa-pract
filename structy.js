@@ -942,3 +942,48 @@ const explore = (grid, i, j, visited) => {
 
   return count;
 };
+
+const closestCarrot = (grid, startRow, startCol) => {
+  let visited = new Set(`${startRow},${startCol}`);
+  let steps = explore(grid, startRow, startCol, visited);
+
+  return steps;
+};
+
+const explore = (grid, i, j, visited) => {
+  let queue = [{ pos: [i, j], step: 0 }];
+
+  while (queue.length !== 0) {
+    let popped = queue.pop();
+    console.log("popped", popped);
+    let { pos, step } = popped;
+    let [r, c] = pos;
+    console.log("step", step);
+    if (grid[r][c] === "C") return step;
+
+    if (spaceCheck(grid, r + 1, c, visited))
+      queue.unshift({ pos: [r + 1, c], step: step + 1 });
+    if (spaceCheck(grid, r - 1, c, visited))
+      queue.unshift({ pos: [r - 1, c], step: step + 1 });
+    if (spaceCheck(grid, r, c + 1, visited))
+      queue.unshift({ pos: [r, c + 1], step: step + 1 });
+    if (spaceCheck(grid, r, c - 1, visited))
+      queue.unshift({ pos: [r, c - 1], step: step + 1 });
+  }
+
+  return -1;
+};
+
+const spaceCheck = (grid, r, c, visited) => {
+  let rBound = 0 <= r && r < grid.length;
+  let cBound = 0 <= c && c < grid[0].length;
+
+  if (!rBound || !cBound) return false;
+
+  let place = `${r},${c}`;
+  if (visited.has(place)) return false;
+  visited.add(place);
+  if (grid[r][c] === "X") return false;
+
+  return true;
+};
