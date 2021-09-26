@@ -1013,3 +1013,43 @@ const explore = (graph, node) => {
   }
   return count
 }
+
+const semestersRequired = (numCourses, prereqs) => {
+  if (prereqs.length === 0) return 1;
+  let graph = createPrereqs(prereqs);
+  let range = Object.keys(graph);
+
+  let maxCount = 1;
+
+  for (let i = 0; i < range.length; i++) {
+    let newNode = range[i];
+    let stack = [{ node: newNode, level: 0 }];
+
+    while (stack.length !== 0) {
+      let { node, level } = stack.pop();
+      node = String(node);
+      if (level > maxCount) {
+        maxCount = level;
+      }
+      if (node in graph) {
+        let nodeArr = graph[node];
+        for (let j = 0; j < nodeArr.length; j++) {
+          stack.unshift({ node: nodeArr[j], level: level + 1 });
+        }
+      }
+    }
+  }
+  return maxCount + 1;
+};
+
+const createPrereqs = (prereqs) => {
+  let graph = {};
+
+  for (let i = 0; i < prereqs.length; i++) {
+    let [first, second] = prereqs[i];
+
+    if (!(first in graph)) graph[first] = [];
+    graph[first].push(second);
+  }
+  return graph;
+};
