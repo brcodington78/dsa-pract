@@ -987,3 +987,29 @@ const spaceCheck = (grid, r, c, visited) => {
 
   return true;
 };
+
+const longestPath = (graph) => {
+  let maxCount = 0;
+  for(let node in graph) {
+    let exploreCount = explore(graph, node)
+    if (maxCount < exploreCount) {
+      maxCount = exploreCount 
+    }
+  }
+  return maxCount
+};
+
+const explore = (graph, node) => {
+  let stack = [{node: node, level: 0}]
+  let count = 0
+  while (stack.length !== 0) {
+    let {node, level} = stack.pop();
+    if (level > count) count = level
+    let graphArr = graph[node];
+    for(let i = 0; i < graphArr.length; i++) {
+      stack.unshift({node: graphArr[i], level: level + 1})
+    }
+    
+  }
+  return count
+}
