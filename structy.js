@@ -1053,3 +1053,39 @@ const createPrereqs = (prereqs) => {
   }
   return graph;
 };
+
+
+const hasCycle = (graph) => {
+  let visited = new Set();
+  let keys = Object.keys(graph);
+  for (let node of keys) {
+    visited.add(node);
+    let valueArr = graph[node];
+    for (let i = 0; i < valueArr.length; i++) {
+      if (visited.has(valueArr[i]) && lookForKey(graph, valueArr[i], node))
+        return true;
+    }
+  }
+
+  return false;
+};
+
+const lookForKey = (graph, key, target) => {
+  // key valueArr[i]
+  //target is node
+  let seen = new Set();
+  let queue = [key];
+
+  while (queue.length !== 0) {
+    let popped = queue.pop();
+    let arr = graph[popped];
+    if (popped === target) return true;
+    for (let i = 0; i < arr.length; i++) {
+      if (!seen.has(arr[i])) {
+        queue.unshift(arr[i]);
+      }
+    }
+  }
+
+  return false;
+};
