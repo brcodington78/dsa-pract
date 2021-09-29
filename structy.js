@@ -1089,3 +1089,20 @@ const lookForKey = (graph, key, target) => {
 
   return false;
 };
+
+const fib = (n) => {
+  let arr = [0, 1];
+  let count = 2;
+  let newNum;
+  if (n === 0) return 0;
+  if (n === 1) return 1;
+
+  while (count !== n + 1) {
+    let [first, second] = arr;
+    newNum = first + second;
+    arr.shift();
+    arr.push(newNum);
+    count++;
+  }
+  return newNum;
+};
