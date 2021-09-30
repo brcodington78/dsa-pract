@@ -1118,3 +1118,20 @@ const tribonacci = (n, memo = {}) => {
 
   return memo[n];
 };
+
+const sumPossible = (amount, numbers, memo = {}) => {
+  if (amount === 0) return true;
+  if (amount < 0) return false;
+
+  if (amount in memo) return memo[amount];
+
+  for (let i = 0; i < numbers.length; i++) {
+    let num = numbers[i];
+    let newNumBool = sumPossible(amount - num, numbers, memo);
+    memo[amount - num] = newNumBool;
+
+    if (memo[amount - num] === true) return true;
+  }
+
+  return false;
+};
