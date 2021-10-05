@@ -1161,4 +1161,3 @@ const _minChange = (amount, coins, memo = {}) => {
   return minCoins;
 };
 
-console.log('we will do a problem tomorrow')
