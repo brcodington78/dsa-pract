@@ -1200,3 +1200,35 @@ const validPos = (spaceArr, grid) => {
 
   if (rBound && cBound && grid[x][y] !== "X") return true;
 };
+
+const maxPathSum = (grid, pos = [0, 0], memo = {}) => {
+  let [r, c] = pos;
+  let stringPos = `${r},${c}`;
+  let endPos = [grid.length - 1, grid[0].length - 1];
+
+  if (String(pos) === String(endPos)) return grid[r][c];
+
+  if (stringPos in memo) return memo[stringPos];
+
+  let newR = r + 1;
+  let newC = c + 1;
+
+  let firstPos = -Infinity;
+  let secondPos = -Infinity;
+
+  if (validPos(grid, [newR, c])) firstPos = maxPathSum(grid, [newR, c], memo);
+  if (validPos(grid, [r, newC])) secondPos = maxPathSum(grid, [r, newC], memo);
+
+  let newVal;
+  console.log("first", firstPos);
+  console.log("second", secondPos);
+
+  if (firstPos > secondPos) {
+    newVal = firstPos + grid[r][c];
+  } else {
+    newVal = secondPos + grid[r][c];
+  }
+
+  memo[stringPos] = newVal;
+  return newVal;
+};
