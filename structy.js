@@ -1161,3 +1161,42 @@ const _minChange = (amount, coins, memo = {}) => {
   return minCoins;
 };
 
+const countPaths = (grid, pos = [0, 0], memo = {}) => {
+  let stringPos = `${pos[0]}, ${pos[1]}`;
+  let endPos = `${grid.length - 1}, ${grid[0].length - 1}`;
+  let count = 0;
+
+  if (stringPos === endPos) return 1;
+  if (stringPos in memo) return memo[stringPos];
+
+  let [x, y] = pos;
+
+  let space1 = [x + 1, y];
+  let space2 = [x, y + 1];
+
+  if (validPos(space1, grid)) {
+    let route1 = countPaths(grid, space1, memo);
+    count += route1;
+  }
+
+  if (validPos(space2, grid)) {
+    let route2 = countPaths(grid, space2, memo);
+    count += route2;
+  }
+
+  memo[stringPos] = count;
+
+  return count;
+};
+
+const validPos = (spaceArr, grid) => {
+  let xEnd = grid.length - 1;
+  let yEnd = grid[0].length - 1;
+
+  let [x, y] = spaceArr;
+
+  let rBound = 0 <= x && x < grid.length;
+  let cBound = 0 <= y && y < grid[0].length;
+
+  if (rBound && cBound && grid[x][y] !== "X") return true;
+};
