@@ -1232,3 +1232,34 @@ const maxPathSum = (grid, pos = [0, 0], memo = {}) => {
   memo[stringPos] = newVal;
   return newVal;
 };
+
+const befittingBrackets = (str) => {
+  let obj = {
+    '(' : ")",
+    "{" : "}",
+    "[" : "]"
+  }
+  let stack = []
+  
+  for(let char of str) {
+    if (char in obj) {
+      stack.push(obj[char])
+    } else {
+      let closer = char;
+      console.log('stack bool', stack[stack.length - 1] === closer, 'closer', closer, 'stack le', stack[stack.length - 1])
+      if (stack.length > 0 && stack[stack.length - 1] === closer){
+ 
+        stack.pop()
+      } else {
+
+        return false
+      }
+    }
+  }
+  
+  console.log('hitting')
+  if (stack.length !== 0) return false;
+  
+  return true
+  
+};
