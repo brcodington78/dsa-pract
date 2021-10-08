@@ -1263,3 +1263,17 @@ const befittingBrackets = (str) => {
   return true
   
 };
+
+const nonAdjacentSum = (nums, i = 0, memo = {}) => {
+  if (i >= nums.length) return 0;
+  if (i in memo) return memo[i];
+
+  let included = nums[i] + nonAdjacentSum(nums, i + 2, memo);
+  let excluded = nonAdjacentSum(nums, i + 1, memo);
+
+  let max = Math.max(included, excluded);
+  memo[i] = max;
+
+  return max;
+};
+
