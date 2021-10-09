@@ -1277,3 +1277,20 @@ const nonAdjacentSum = (nums, i = 0, memo = {}) => {
   return max;
 };
 
+
+const summingSquares = (n, memo = {}) => {
+  if (n in memo) return memo[n];
+  if (n === 0) return 0;
+
+  let min = Infinity;
+  for (let i = 1; i <= Math.sqrt(n); i += 1) {
+    let square = i * i;
+    let squareDif = n - square;
+    let turn = 1 + summingSquares(squareDif, memo);
+    min = Math.min(turn, min);
+  }
+
+  memo[n] = min;
+
+  return min;
+};
