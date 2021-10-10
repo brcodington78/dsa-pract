@@ -1294,3 +1294,21 @@ const summingSquares = (n, memo = {}) => {
 
   return min;
 };
+
+const countingChange = (amount, coins, i = 0, memo = {}) => {
+  let instance = i + "," + amount;
+  if (instance in memo) return memo[instance];
+  if (amount === 0) return 1;
+  if (i === coins.length) return 0;
+  let count = 0;
+
+  const coin = coins[i];
+
+  for (let quantity = 0; quantity * coin <= amount; quantity++) {
+    let paths = countingChange(amount - quantity * coin, coins, i + 1, memo);
+    count += paths;
+  }
+
+  memo[instance] = count;
+  return count;
+};
