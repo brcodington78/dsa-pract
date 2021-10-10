@@ -1312,3 +1312,24 @@ const countingChange = (amount, coins, i = 0, memo = {}) => {
   memo[instance] = count;
   return count;
 };
+
+const arrayStepper = (nums, i = 0, memo = {}) => {
+  console.log("i", i);
+  let maxIdx = nums.length - 1;
+  if (i >= maxIdx) return true;
+  if (String(i) in memo) return memo[String(i)];
+  let numSteps = nums[i];
+  if (numSteps === 0) return false;
+
+  for (let j = 1; j <= numSteps; j++) {
+    let possible = arrayStepper(nums, i + j, memo);
+    if (possible === true) {
+      return true;
+    } else {
+      memo[String(i + j)] = false;
+    }
+  }
+
+  return false;
+};
+
