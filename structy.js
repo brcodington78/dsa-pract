@@ -1333,3 +1333,24 @@ const arrayStepper = (nums, i = 0, memo = {}) => {
   return false;
 };
 
+const maxPalinSubsequence = (str, i = 0, j = str.length - 1, memo = {}) => {
+  if (i === j) return 1;
+  if (i > j) return 0;
+  if (i + "," + j in memo) return memo[i + "," + j];
+
+  // console.log('memo', memo)
+
+  if (str[i] === str[j]) {
+    memo[i + "," + j] = 2 + maxPalinSubsequence(str, i + 1, j - 1, memo);
+  } else {
+    let first = maxPalinSubsequence(str, i + 1, j, memo);
+    let second = maxPalinSubsequence(str, i, j - 1, memo);
+    // console.log('first', first, 'second', second)
+    memo[i + "," + j] = Math.max(first, second);
+  }
+
+  console.log("memo @ i and j", memo[i + "," + j], "i", i, "j", j);
+
+  return memo[i + "," + j];
+};
+
