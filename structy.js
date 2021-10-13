@@ -1354,3 +1354,28 @@ const maxPalinSubsequence = (str, i = 0, j = str.length - 1, memo = {}) => {
   return memo[i + "," + j];
 };
 
+const overlapSubsequence = (str1, str2, i = 0, j = 0, memo = {}) => {
+  if (i >= str1.length || j >= str2.length) return 0;
+  let pos = i + "," + j
+  if (pos in memo ) return memo[pos];
+  
+  let char1 = str1[i];
+  let char2 = str2[j];
+  let sum
+  
+  if (char1 === char2) {
+    sum = 1 + overlapSubsequence(str1, str2, i + 1, j + 1 , memo)
+  } else {
+    let sum1 = overlapSubsequence(str1, str2, i + 1, j, memo);
+    let sum2 = overlapSubsequence(str1, str2, i, j + 1, memo);
+    
+    sum = Math.max(sum1, sum2)
+  }
+  
+  memo[pos] = sum;
+  
+  return memo[pos]
+  
+};
+
+
