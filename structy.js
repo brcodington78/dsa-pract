@@ -1378,4 +1378,22 @@ const overlapSubsequence = (str1, str2, i = 0, j = 0, memo = {}) => {
   
 };
 
+const canConcat = (s, words, currentStr = "", memo = {}) => {
+  if (currentStr in memo) return memo[currentStr];
+  if (!s.includes(currentStr)) return false;
+  if (currentStr === s) {
+    memo[currentStr] = true;
+    return true;
+  }
+  for (let word of words) {
+    let newWord = currentStr + word;
+    if (canConcat(s, words, newWord, memo)) {
+      memo[currentStr] = true;
+      return true;
+    }
+  }
+
+  memo[currentStr] = false;
+  return false;
+};
 
