@@ -1423,3 +1423,20 @@ const _quickestConcat = (s, words, memo = {}) => {
   memo[s] = minWords;
   return memo[s];
 };
+
+
+const pairedParentheses = (str) => {
+  let stack = [];
+  let arr = str.split("");
+
+  for (let char of arr) {
+    if (char === "(") stack.push("(");
+    if (char === ")") {
+      if (stack.length === 0) return false;
+      stack.pop();
+    }
+  }
+
+  if (stack.length) return false;
+  return true;
+};
