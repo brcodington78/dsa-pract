@@ -1440,3 +1440,33 @@ const pairedParentheses = (str) => {
   if (stack.length) return false;
   return true;
 };
+
+
+const decompressBraces = (s) => {
+  let numArr = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+  let stringArr = s.split("");
+  let stack = [];
+
+  for (let i = 0; i < stringArr.length; i++) {
+    let char = stringArr[i];
+
+    if (char === "}") {
+      let popped = stack.pop();
+      let tempStr = "";
+      while (!numArr.includes(popped)) {
+        tempStr = popped + tempStr;
+        popped = stack.pop();
+      }
+      console.log("tempStr", tempStr);
+      console.log("popped but a num", popped);
+      let stackItem = tempStr.repeat(parseInt(popped));
+      console.log("stackItem", stackItem);
+
+      stack.push(stackItem);
+    } else if (char !== "{") {
+      stack.push(char);
+    }
+  }
+
+  return stack.join("");
+};
