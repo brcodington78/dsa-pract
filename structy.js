@@ -1470,3 +1470,23 @@ const decompressBraces = (s) => {
 
   return stack.join("");
 };
+
+const nestingScore = (str) => {
+  let stack = [0];
+
+  for (let i = 0; i < str.length; i++) {
+    let char = str[i];
+    if (char === "[") stack.push(0);
+    console.log("stack from short being added", stack);
+    if (char === "]") {
+      let popped = stack.pop();
+      if (popped === 0) stack[stack.length - 1] = stack[stack.length - 1] + 1;
+      if (popped > 0)
+        stack[stack.length - 1] = stack[stack.length - 1] + popped * 2;
+      console.log("stack from long being added", stack);
+    }
+  }
+
+  console.log("stack", stack);
+  return stack.pop();
+};
