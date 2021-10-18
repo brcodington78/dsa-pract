@@ -1490,3 +1490,19 @@ const nestingScore = (str) => {
   console.log("stack", stack);
   return stack.pop();
 };
+
+const subsets = (elements) => {
+  if (elements.length === 0) return [[]];
+
+  let first = elements[0];
+  let slice = elements.slice(1);
+  let subsetWithoutFirst = subsets(slice);
+  let subsetsWithFirst = [];
+
+  for (let sub of subsetWithoutFirst) {
+    let newSub = [first, ...sub];
+    subsetsWithFirst.push(newSub);
+  }
+
+  return subsetsWithFirst.concat(subsetWithoutFirst);
+};
