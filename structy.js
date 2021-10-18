@@ -1506,3 +1506,36 @@ const subsets = (elements) => {
 
   return subsetsWithFirst.concat(subsetWithoutFirst);
 };
+
+
+const permutations = (items) => {
+  if(items.length === 0) return [[]];
+  
+  let first = items[0];
+  let slice = items.slice(1);
+  let permsWithoutFirst = permutations(slice);
+  let ansArr = []
+  
+  for (let perm of permsWithoutFirst) {
+    for(let i = 0; i <= perm.length; i++) {
+      let newPerm = [...perm.slice(0,i), first, ...perm.slice(i)];
+      ansArr.push(newPerm);
+    }
+  }
+  
+  return ansArr;
+  
+};
+
+
+// going to use recursion 
+// similar structure as the last problem
+
+// set a base case for if the array is empty
+// save the first element into a var
+// run a recursive call with a slice of items that does not include the first index
+// save that call to a var, this will result in an array with arrays
+// make an empty array
+// make a for loop with each array from the recursive var
+// for each array put that element into every possible index
+// push that arr into the empty array
