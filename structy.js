@@ -1539,3 +1539,30 @@ const permutations = (items) => {
 // make a for loop with each array from the recursive var
 // for each array put that element into every possible index
 // push that arr into the empty array
+
+const createCombinations = (items, k) => {
+  if (items.length < k ) return [];
+  if (k === 0) return [[]];
+  
+  let first = items[0];
+  let itemsWithoutFirst = items.slice(1);
+  let ans = []
+  
+  let itemsThatWillHaveFirst = createCombinations(itemsWithoutFirst, k - 1);
+  for(let item of itemsThatWillHaveFirst) {
+    let newItem = [first, ...item];
+    ans.push(newItem)
+  }
+  
+  let itemsThatWillNotHaveFirst = createCombinations(itemsWithoutFirst, k);
+  
+  return ans.concat(itemsThatWillNotHaveFirst)
+  
+};
+
+//going to use recursion
+// going to approach this using a tree type framework
+// the initial array will produce two types of arrays
+
+// one will be an array that contains all of the combinations of items but of length k - 1
+// another will be an array that contains items.slice(1, k)
