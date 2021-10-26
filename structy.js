@@ -1616,3 +1616,69 @@ function parseString(s) {
 // add a stored char to the remainder possibility and push that into the empty array
 
 // return
+
+
+const substituteSynonyms = (sentence, synonyms) => {
+  if (sentence.length === 0) return [''];
+  
+  let {choices, remainder} = parseSentence(sentence, synonyms);
+  let restOfSentencePossiblities = substituteSynonyms(remainder.join(" "), synonyms);
+  let ans = [];
+  
+  for (let choice of choices) {
+    for (let possibility of restOfSentencePossiblities) {
+      if (possibility === '') ans.push(choice);
+      else {
+        let newSentence = choice + " " + possibility
+        ans.push(newSentence)  
+      }
+      
+    }
+  }
+  
+  return ans
+};
+
+
+
+function parseSentence(sentence, synonyms) {
+  console.log("hitting")
+  let sentenceArr = sentence.split(' ');
+  let obj;
+  if (sentenceArr[0] in synonyms) {
+    obj = {
+      choices: synonyms[sentenceArr[0]],
+      remainder: sentenceArr.splice(1)
+    }
+    
+  }else {
+      obj = {
+        choices: [sentenceArr[0]],
+        remainder: sentenceArr.splice(1)
+      }
+    }
+    return obj
+} // return an object with 2 values that are arrays
+
+  
+
+// very similar to the last problem, going to use recursion
+// first we will split the string
+// we will run it through the parse function
+
+// the parse function will detect whether the first word is in the synonyms object
+
+// if it is not in the synonyms object return an object that has has {choices: ["theword"] remainder: ["the", " remainder", "of", "the", "sentence"]}
+
+// if it is in the object
+// return {choices: ["all", "the" , "possibilities"], remainder: ["the", " remainder", "of", "the", "sentence"] }
+
+// after you deconstruct your object
+// run your remainder through the recursive function
+// save that to a variable
+// set an empty array
+// iterate through your choices
+// iterate through the remainder possibilities
+// add your choice to the beginnging of each possibility
+// push that to the array
+//return the ans array.join
