@@ -1566,3 +1566,53 @@ const createCombinations = (items, k) => {
 
 // one will be an array that contains all of the combinations of items but of length k - 1
 // another will be an array that contains items.slice(1, k)
+
+
+const parentheticalPossibilities = (s) => {
+  if (s.length === 0) return [""];
+  
+  let {choices, remainder} = parseString(s);
+  let possibilities = parentheticalPossibilities(remainder); // an array of the possible endings
+  let ans = [];
+  
+  for (let choice of choices) {
+    for (let possible of possibilities) {
+      console.log("possible", possible)
+      let newS = choice + possible
+      ans.push(newS)
+    }
+  }
+  
+  return ans
+  
+  
+};
+
+
+function parseString(s) {
+  let first = s[0];
+  
+  if (first !== '(') return {choices: first, remainder: s.slice(1)}
+  else {
+    let parI = s.indexOf(')');
+    let choices = s.slice(1,parI);
+    let theRest = s.slice(parI + 1);
+    return {choices: choices, remainder: theRest};
+  }
+}
+
+// going to use recursion
+
+// first check to see if the first element of the string is a paranthesis.
+// if it is not call a recursive function on the rest of the string
+
+// if it is iterate through the string until you find then closing parenthesis
+// store all the characters before the closing parenthesis into an array
+// make a recursive call on the rest of the string, it will return an array with the rest of the possible arrangements.
+
+// make an empty array
+// iterate through the stored characters
+// have a nested loop that iterates through the remainder possibilities
+// add a stored char to the remainder possibility and push that into the empty array
+
+// return
