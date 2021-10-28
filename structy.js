@@ -1718,3 +1718,21 @@ const middleValue = (head) => {
 // iterate through the linked list
 // add the values into an array
 // return ansArr[ansArr.length/2]
+
+const linkedListCycle = (head) => {
+  let set = new Set();
+  let current = head;
+  
+  while(current) {
+    if (set.has(current.val)) return true;
+    set.add(current.val);
+    current = current.next
+  }
+  return false
+};
+
+//create an empty set
+//iterate through the linked list
+// see if the value of the node is in the linked list
+// if it is not add it to the set, change current.next
+// if it is return true
