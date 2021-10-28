@@ -1702,3 +1702,19 @@ const linkedPalindrome = (head) => {
 // iterate through the linked list using a while loop;
 // add each node value into an array
 // join the array and see if the reverse of the array is equal to it
+
+const middleValue = (head) => {
+    let ansArr = [];
+    let current = head;
+  
+  while(current) {
+    ansArr.push(current.val);
+    current = current.next;
+  }
+  
+  return ansArr[Math.floor(ansArr.length / 2)]
+};
+
+// iterate through the linked list
+// add the values into an array
+// return ansArr[ansArr.length/2]
