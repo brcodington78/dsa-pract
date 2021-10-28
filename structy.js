@@ -1682,3 +1682,23 @@ function parseSentence(sentence, synonyms) {
 // add your choice to the beginnging of each possibility
 // push that to the array
 //return the ans array.join
+
+
+const linkedPalindrome = (head) => {
+  let current = head;
+  let ansArr = []
+  while (current) {
+    ansArr.push(current.val);
+    current = current.next;
+    
+  }
+  
+  let stringAns = ansArr.join("")
+  let reverse = ansArr.reverse().join("")
+  
+  return stringAns === reverse
+  
+};
+// iterate through the linked list using a while loop;
+// add each node value into an array
+// join the array and see if the reverse of the array is equal to it
