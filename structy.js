@@ -1736,3 +1736,49 @@ const linkedListCycle = (head) => {
 // see if the value of the node is in the linked list
 // if it is not add it to the set, change current.next
 // if it is return true
+
+
+const lowestCommonAncestor = (root, val1, val2) => {
+  let arr1 = findAncestors(root, val1);
+  let arr2 = findAncestors(root, val2);
+  let set1 = new Set(arr1);
+  
+  for(let ele of arr2) {
+    if (set1.has(ele)) return ele
+  } 
+  
+  return null
+};
+
+
+function findAncestors(root, val) {
+  if (root === null) return null;
+  if (root.val === val) return [val];
+  
+  
+  let leftArr = findAncestors(root.left, val);
+  let rightArr = findAncestors(root.right, val);
+  
+  if (leftArr) return [...leftArr, root.val];
+  if (rightArr) return [...rightArr, root.val];
+  
+  
+  
+}
+
+
+// check to see if the root is the value, if it is return a set with the value
+// if it not the value check to see if it has a left or a right;
+// if it does not return an empty set
+// if it does run the function on the left and or right
+// add the return to the set and return the set
+
+
+// make a helper function
+// it will iterate through the tree 
+// as it iterates lookig for the value, it will store the ancestors of the desired node
+// into a set
+
+// we will run this helper with both vals and save each result into a new variable;
+// we will then iterate through one of them until we find a corresponding value in teh other set
+// we will return that value
