@@ -1782,3 +1782,29 @@ function findAncestors(root, val) {
 // we will run this helper with both vals and save each result into a new variable;
 // we will then iterate through one of them until we find a corresponding value in teh other set
 // we will return that value
+
+
+const flipTree = (root) => {
+  let queue = [root];
+  
+  while(queue.length !== 0) {
+    let currentNode = queue.pop()
+    let temp = currentNode.left;
+    currentNode.left = currentNode.right;
+    currentNode.right = temp;
+    
+    if (currentNode.left) queue.unshift(currentNode.left);
+    if (currentNode.right) queue.unshift(currentNode.right);
+  }
+  
+  return root
+};
+
+// iterate through the tree, probably best to use bfs
+
+//when you are on a node
+// set the node.left = node.right, node.right = node.left
+// this way nulls are flipped when they are present.this
+// after this check to see if left and right exist, add the ones that exist to the queue
+//repeat until queue is empty so we will use a while loop with the condition of the length of the queue
+// return the head of the tree
