@@ -1808,3 +1808,31 @@ const flipTree = (root) => {
 // after this check to see if left and right exist, add the ones that exist to the queue
 //repeat until queue is empty so we will use a while loop with the condition of the length of the queue
 // return the head of the tree
+
+const leftyNodes = (root) => {
+  if (root === null) return []
+  let ansArr = []
+  let stack = [{node: root, level: 0}];
+  
+  
+  while(stack.length !== 0) {
+    let {node, level} = stack.pop();
+    if (!ansArr[level]) ansArr.push(node.val);
+    
+    if (node.right) stack.push({node: node.right, level: level + 1});
+    if (node.left) stack.push({node: node.left, level: level + 1});
+  }
+  return ansArr
+  
+};
+
+// we will use a stack 
+// we will perform depth first search
+// when we add an object to our stack array it will consist of when
+// the node itself and its level relative to the rest of the tree
+
+//when we pop a node from the stack
+// we check to see if that node level is already present in our array
+// by this i mean that we check to see if that index is already populated
+// if it is not we push that node value into the array 
+// no matter what we add the nodes children to the stack 
