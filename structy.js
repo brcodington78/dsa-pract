@@ -1856,3 +1856,59 @@ const validateNode = (graph, node, colorObj, currentColor) => {
   }
   return true;
 };
+
+const tolerantTeams = (rivalries) => {
+  let graph = constructGraph(rivalries);
+  let teamObj = {};
+  
+  
+  for (let person in graph) {
+    if (!(person in teamObj)) {
+      if (!validate(person, graph, teamObj, false)) return false
+    }
+  }
+  
+  return true
+  
+};
+
+const validate = (person, graph, teamObj, color) => {
+  if (person in teamObj) return teamObj[person] === color;
+  teamObj[person] = color
+  
+  for(let neighbor of graph[person]){
+    if (!validate(neighbor,graph,teamObj, !color)) return false
+  }
+  
+  return true
+}
+
+const constructGraph = (rivalries) => {
+  let graph = {}
+  
+  for(let pairArr of rivalries) {
+    let [person1, person2] = pairArr;
+    
+    if (!graph[person1])  graph[person1] = [];
+    if (!graph[person2])  graph[person2] = [];
+    
+    graph[person1].push(person2);
+    graph[person2].push(person1);
+  }
+  
+  return graph
+}
+
+// it looks like it will be a good idea to do dfs through peeps
+
+// create another obj but with false and true being values and keys being the players name
+// make a validation function that will take in a node
+// will take in team obj
+// will take in a team type
+
+
+// the function will basically perform a dfs search through the peeps
+// alternating team types as you put another node through the function
+// if a person is in the teamObj with a team that it cant be on
+// return false
+// continueto iterate through the whole thing until you can't
