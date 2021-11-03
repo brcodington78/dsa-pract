@@ -1836,3 +1836,23 @@ const leftyNodes = (root) => {
 // by this i mean that we check to see if that index is already populated
 // if it is not we push that node value into the array 
 // no matter what we add the nodes children to the stack 
+
+const canColor = (graph) => {
+  let colorObj = {};
+
+  for (let node in graph) {
+    if (!(node in colorObj) && !validateNode(graph, node, colorObj, false))
+      return false;
+  }
+  return true;
+};
+
+const validateNode = (graph, node, colorObj, currentColor) => {
+  if (node in colorObj) return currentColor === colorObj[node];
+  colorObj[node] = currentColor;
+
+  for (let neighbor of graph[node]) {
+    if (!validateNode(graph, neighbor, colorObj, !currentColor)) return false;
+  }
+  return true;
+};
