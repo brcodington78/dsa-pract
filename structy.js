@@ -1948,3 +1948,34 @@ const maxIncreasingSubseq = (numbers, i = 0, previous = -Infinity, memo ={}) => 
 // we should make a conditional to verify and then make the recursive call
 
 // at the end we return the greater value which will represent the longer sequence
+
+const positioningPlants = (costs, i = 0, prev = null, memo = {}) => {
+  const key = i + "," + prev;
+  if(key in memo) return memo[key]
+  
+  if(i === costs.length) return 0;
+  let minCost = Infinity;
+  let options = [];
+  
+  for(let j = 0; j < costs[i].length; j++) {
+    let currentPlantCost = costs[i][j]
+    if(j !== prev) {
+      let trial = currentPlantCost + positioningPlants(costs, i + 1, j, memo)
+      minCost = Math.min(trial, minCost)
+    }
+  }
+  
+  memo[key] = minCost
+  return memo[key]
+  
+};
+
+
+// it would be helpful to use recurtion for this problem
+// also memoization
+
+// want to be able to pick a flower from a row
+// save the index to a variable as prev
+
+// we want to see all the possible choices
+// we can 
