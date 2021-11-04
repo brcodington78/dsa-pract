@@ -1912,3 +1912,39 @@ const constructGraph = (rivalries) => {
 // if a person is in the teamObj with a team that it cant be on
 // return false
 // continueto iterate through the whole thing until you can't
+
+const maxIncreasingSubseq = (numbers, i = 0, previous = -Infinity, memo ={}) => {
+  const key = i + ',' + previous;
+  if(key in memo) return memo[key]
+  if (i > numbers.length - 1) return 0;
+  
+  const current = numbers[i];
+  
+  let dontTake = maxIncreasingSubseq(numbers, i + 1, previous, memo);
+  
+  let options = [dontTake]
+  if (current > previous) {
+    let take = 1 + maxIncreasingSubseq(numbers, i + 1, current, memo)
+    options.push(take)
+  }
+ 
+  memo[key] = Math.max(...options);
+  return memo[key]
+};
+
+
+// going to use recursion for this problem 
+// basically going to call the function on itself with a base case of:
+// if the length of the array we are looking at is zero return 0;
+
+// we are then going to compare two values
+// the value of the function when given the current number and continueing to go through the rest of the array
+// and the value without the current number but continuing to go through the array
+// in the case of using the current number we add one to the result because our aim
+// is to count the max subsequence
+
+//we also have to consider what the previous number was in the sequence when taking a number
+// we need to make sure the previous number is smaller than the current so before we make that recursive call
+// we should make a conditional to verify and then make the recursive call
+
+// at the end we return the greater value which will represent the longer sequence
