@@ -1979,3 +1979,27 @@ const positioningPlants = (costs, i = 0, prev = null, memo = {}) => {
 
 // we want to see all the possible choices
 // we can 
+
+const mergeSort = (nums) => {
+  if (nums.length <= 1) return nums;
+
+  let mid = Math.floor(nums.length / 2);
+  let half1 = nums.slice(0, mid);
+  let half2 = nums.slice(mid);
+  half1 = mergeSort(half1);
+  half2 = mergeSort(half2);
+
+  return merge(half1, half2);
+};
+
+const merge = (num1, num2) => {
+  let arr = [];
+  while (num1.length !== 0 || num2.length !== 0) {
+    if (num1.length === 0) return [...arr, ...num2];
+    if (num2.length === 0) return [...arr, ...num1];
+    if (num1[0] >= num2[0]) {
+      arr.push(num2.shift());
+    } else arr.push(num1.shift());
+  }
+  return arr;
+};
