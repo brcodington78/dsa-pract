@@ -2003,3 +2003,47 @@ const merge = (num1, num2) => {
   }
   return arr;
 };
+
+
+const breakingBoundaries = (m, n, k, r, c, memo={}) => {
+  let pos = r + ',' + c + ',' + k
+  if (!validPos(m,n,r,c)) return 1;
+  if (k === 0) return 0;
+  if (memo[pos]) return memo[pos]
+  
+  let left = breakingBoundaries(m,n, k - 1, r, c - 1, memo);
+  let right = breakingBoundaries(m,n, k - 1, r, c + 1, memo);
+  let up = breakingBoundaries(m,n, k - 1, r - 1, c, memo);
+  let down = breakingBoundaries(m,n, k - 1, r + 1, c, memo);
+  
+  let count = left + right + up + down
+  
+  memo[pos] = count 
+  return memo[pos]
+  
+  
+  
+  
+};
+  
+const validPos = (m,n,r,c) => {
+  if (!(r <= m - 1 && r >= 0)) return false;
+  if (!(c <= n - 1 && c >= 0)) return false;
+  
+  return true
+}
+
+
+// going to return a number
+// going to make this a recursive problem
+
+// base case: if position is in bounds and moves equals 0 return 0;
+// base case: if position is out of bounds return 1;
+// if position is in memo return memo[pos]
+
+
+// make four recursive calls based off the different moves you can go in
+// add the result of all those to count
+// memoize the result and return it
+
+//going to need a function to see if position is valid 
