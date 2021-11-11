@@ -2047,3 +2047,30 @@ const validPos = (m,n,r,c) => {
 // memoize the result and return it
 
 //going to need a function to see if position is valid 
+
+const combineIntervals = (intervals) => {
+  let sortedIntervals = intervals.sort((intervalA, intervalB) => {
+    return intervalA[0] - intervalB[0]
+  })
+  let ans = [sortedIntervals[0]];
+  for(let i = 1; i < sortedIntervals.length; i++) {
+    let [first1, first2] = ans[ans.length - 1];
+    let [second1, second2] = sortedIntervals[i];
+    
+    if(second1 > first1 && second1 <= first2 && second2 > first2) ans[ans.length - 1][1] = second2;
+    else if(second2 > first2) ans.push([second1, second2])
+    
+  }
+  return ans
+  
+};
+
+//first sort intervals into ascending for first index of arr
+//create an empty answer arr
+// give it the first item of the sorted arr
+// iterate through the sorted arr
+
+// if the beginning of the second arr is greater than the end of the first arr 
+// and the ending of the second arr is greater than the ending of the first arr
+// set the ending of the first arr to the ending of the second arr
+// if not add it to the arr
