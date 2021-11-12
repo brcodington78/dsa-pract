@@ -2117,3 +2117,34 @@ const binarySearchTreeIncludes = (root, target) => {
 // if not check to see if root.val is bigger than the target
 // first check to see if root.left exists than run the recursive function on it if it does
 // if not return false
+
+
+const isBinarySearchTree = (root) => {
+  let orderedArr = createArr(root);
+
+  console.log("orderedArr", orderedArr);
+
+  for (let i = 0; i < orderedArr.length - 1; i++) {
+    if (orderedArr[i] > orderedArr[i + 1]) return false;
+  }
+
+  return true;
+};
+
+const createArr = (root) => {
+  if (!root.left && !root.right) return [root.val];
+
+  let arr = [root.val];
+
+  if (root.left) {
+    let left = createArr(root.left);
+    arr = [...left, ...arr];
+  }
+
+  if (root.right) {
+    let right = createArr(root.right);
+    arr = [...arr, ...right];
+  }
+
+  return arr;
+};
