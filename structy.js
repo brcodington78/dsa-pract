@@ -2167,3 +2167,47 @@ const postOrder = (root) => {
 
   return [...ansArr, root.val];
 };
+
+const buildTreeInPost = (inOrder, postOrder) => {
+  if (inOrder.length === 1 || postOrder.length === 1)
+    return new Node(inOrder[0]);
+
+  let rootVal = postOrder[postOrder.length - 1];
+  let rootIndexInOrder = inOrder.indexOf(rootVal);
+
+  let rootNode = new Node(rootVal);
+
+  let left = inOrder.slice(0, rootIndexInOrder);
+  let right = inOrder.slice(rootIndexInOrder + 1);
+
+  if (left.length !== 0) {
+    let leftPostOrder = postOrder.slice(0, left.length);
+    let leftNode = buildTreeInPost(left, leftPostOrder);
+    rootNode.left = leftNode;
+  }
+
+  if (right.length !== 0) {
+    let rightPostOrder = postOrder.slice(left.length, postOrder.length - 1);
+    let rightNode = buildTreeInPost(right, rightPostOrder);
+    rootNode.right = rightNode;
+  }
+
+  return rootNode;
+};
+
+// going to use recursion
+
+
+//our base case will be if the inOrder arr and postOrder arr are both length 1
+// return a node with the val of inOrder[0];
+
+// the initial post order array's last element is the root of the binary root
+// what we want to do is find that element within the inOrder arr to determine the left and right sides of the tree;
+// you take the index of the root in the inOrder arr and split arr
+// the first half will be elements that are on the left sides
+// the second half will be elements that are on the right sides
+
+// make the root into a node and save it to a var
+// put the first slice into a recursive call of buildTreeInPost and make the return the left of the current node
+// put the second slice into a recursive call of buildTreeInPost and make the return the right node of the current node
+// return the root
