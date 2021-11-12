@@ -2074,3 +2074,21 @@ const combineIntervals = (intervals) => {
 // and the ending of the second arr is greater than the ending of the first arr
 // set the ending of the first arr to the ending of the second arr
 // if not add it to the arr
+
+const binarySearch = (numbers, target) => {
+  if (numbers.length === 0) return -1;
+
+  let mid = Math.floor(numbers.length / 2);
+
+  if (numbers[mid] === target) return mid;
+
+  if (numbers[mid] > target) {
+    return binarySearch(numbers.slice(0, mid), target);
+  }
+
+  if (numbers[mid] <= target) {
+    let ans = binarySearch(numbers.slice(mid + 1), target);
+    if (ans !== -1) return ans + mid + 1;
+    else return -1;
+  }
+};
