@@ -2148,3 +2148,22 @@ const createArr = (root) => {
 
   return arr;
 };
+
+const postOrder = (root) => {
+  if (root === null) return [];
+  if (!root.left && !root.right) return [root.val];
+
+  let ansArr = [];
+
+  if (root.left) {
+    let left = postOrder(root.left);
+    ansArr = [...left];
+  }
+
+  if (root.right) {
+    let right = postOrder(root.right);
+    ansArr = [...ansArr, ...right];
+  }
+
+  return [...ansArr, root.val];
+};
