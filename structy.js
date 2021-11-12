@@ -2092,3 +2092,28 @@ const binarySearch = (numbers, target) => {
     else return -1;
   }
 };
+
+
+const binarySearchTreeIncludes = (root, target) => {
+  if (root.val === target) return true
+  if (root.val > target) {
+    if (root.left) {
+      return binarySearchTreeIncludes(root.left , target)
+    }
+  }
+  if (root.val < target){
+    if (root.right) {
+      return binarySearchTreeIncludes(root.right, target)
+    }
+  }
+  
+  return false
+  
+};
+
+
+// check to see if root is target, if yes return true
+  
+// if not check to see if root.val is bigger than the target
+// first check to see if root.left exists than run the recursive function on it if it does
+// if not return false
