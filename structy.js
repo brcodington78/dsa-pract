@@ -2242,3 +2242,43 @@ const buildTreeInPre = (inOrder, preOrder) => {
 
   return root;
 };
+
+const lexicalOrder = (word1, word2, alphabet) => {
+  let object = {};
+  let i = 0
+  for (let char of alphabet) {
+    object[char] = i;
+    i++
+  }
+  
+  i = 0;
+  while (i <= word1.length && i <= word2.length ) {
+    let char1 = word1[i];
+    let char2 = word2[i];
+    console.log("char1",char1);
+    console.log('char2', char2)
+    if (!char1) return true;
+    if(!char2) return false;
+    
+    if (object[char1] < object[char2]) return true;
+    if (object[char1] > object[char2]) return false;
+    i++
+  }
+  
+  
+  return true
+  
+};
+
+
+// make an object that contains letters as keys and indexes as values
+// iterate through each word at the same time
+// check to see if a character exists at that indexes
+// if does not exist in the first one, return true
+// if it does not appear in the second return false
+
+// then check to see if the chars are the same, if they are restart loop with index position incremented
+// if they are not key into the object with both letters and see if
+// which value is lower, if the first word has a lower value return true
+// else return false
+// continue this until one of the words runs out of letters 
