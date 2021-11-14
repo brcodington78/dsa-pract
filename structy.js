@@ -2211,3 +2211,34 @@ const buildTreeInPost = (inOrder, postOrder) => {
 // put the first slice into a recursive call of buildTreeInPost and make the return the left of the current node
 // put the second slice into a recursive call of buildTreeInPost and make the return the right node of the current node
 // return the root
+
+
+const buildTreeInPre = (inOrder, preOrder) => {
+  if (inOrder.length === 1 || preOrder.length === 1)
+    return new Node(inOrder[0]);
+
+  let rootVal = preOrder[0];
+  let rootIndex = inOrder.indexOf(rootVal);
+  let root = new Node(rootVal);
+
+  let leftOrder = inOrder.slice(0, rootIndex);
+  let rightOrder = inOrder.slice(rootIndex + 1);
+
+  if (leftOrder.length !== 0) {
+    let leftNode = buildTreeInPre(
+      leftOrder,
+      preOrder.slice(1, leftOrder.length)
+    );
+    root.left = leftNode;
+  }
+
+  if (rightOrder.length !== 0) {
+    let rightNode = buildTreeInPre(
+      rightOrder,
+      preOrder.slice(leftOrder.length + 1)
+    );
+    root.right = rightNode;
+  }
+
+  return root;
+};
