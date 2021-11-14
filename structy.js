@@ -2282,3 +2282,44 @@ const lexicalOrder = (word1, word2, alphabet) => {
 // which value is lower, if the first word has a lower value return true
 // else return false
 // continue this until one of the words runs out of letters 
+
+const detectDictionary = (dictionary, alphabet) => {
+  let i = 0;
+  let j = 1;
+
+  while (j < dictionary.length) {
+    let word1 = dictionary[i];
+    let word2 = dictionary[j];
+
+    if (!lexicalOrder(word1, word2, alphabet)) return false;
+    i++;
+    j++;
+  }
+
+  return true;
+};
+
+const lexicalOrder = (word1, word2, alphabet) => {
+  let object = {};
+  let i = 0;
+  for (let char of alphabet) {
+    object[char] = i;
+    i++;
+  }
+
+  i = 0;
+  while (i <= word1.length && i <= word2.length) {
+    let char1 = word1[i];
+    let char2 = word2[i];
+    console.log("char1", char1);
+    console.log("char2", char2);
+    if (!char1) return true;
+    if (!char2) return false;
+
+    if (object[char1] < object[char2]) return true;
+    if (object[char1] > object[char2]) return false;
+    i++;
+  }
+
+  return true;
+};
