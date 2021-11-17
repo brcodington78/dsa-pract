@@ -2323,3 +2323,7 @@ const lexicalOrder = (word1, word2, alphabet) => {
 
   return true;
 };
+
+const topologicalOrder = (graph) => {
+  // todo
+};
