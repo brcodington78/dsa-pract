@@ -2421,3 +2421,64 @@ function createCountObj(graph) {
 
   return obj;
 }
+
+const stringSearch = (grid, s) => {
+  let firstChar = s[0]
+  for(let i = 0; i < grid.length; i++){
+    for(let j = 0; j < grid[0].length; j++){
+      let currentChar = grid[i][j];
+      if (firstChar === currentChar) {
+        if (findWord(grid, s, 0, i, j)) return true
+      }
+    }
+  }
+  return false
+};
+
+"01234"
+
+
+const findWord = (grid, s, i, row, col, set = new Set()) => {
+  if (i === s.length ) return true;
+  if(!inBounds(row, col, grid)) return false;
+  let pos = row + ',' + col;
+  let char = grid[row][col]
+  if(set.has(pos)) return false;
+  if (char !== s[i]) return false;
+  
+  set.add(pos)
+  console.log("pos", pos)
+  console.log("i", i)
+  console.log("length", s.length)
+  let up = findWord(grid, s, i + 1, row - 1, col, set);
+  let down = findWord(grid, s, i + 1, row + 1, col, set);
+  let left = findWord(grid, s, i + 1, row, col - 1, set);
+  let right = findWord(grid, s, i + 1, row, col + 1, set);
+  
+  if(up || down || left || right) {
+    console.log('true');
+    return true
+  }
+  
+  return false
+  
+  
+}
+
+const inBounds = (row, col, grid) => {
+  let validRow = (0 <= row && row < grid.length );
+  let validCol = (0 <= col && col < grid[0].length);
+  
+  if (!validRow || !validCol) return false;
+  
+  return true
+}
+
+// perform some sort of breadth first recursive search
+
+// iterate through the graph and find the first letter of the stringSearch
+// once found check to see if any direction contains the next character
+// we will want to be able to remember spaces we have used and the current index of the string we are looking for
+// if any return true return true
+
+//it will help to make a recursive helper function to deal with the logic above
