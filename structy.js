@@ -2325,5 +2325,37 @@ const lexicalOrder = (word1, word2, alphabet) => {
 };
 
 const topologicalOrder = (graph) => {
-  // todo
+  let ans = [];
+  let queue = [];
+  let obj = findKids(graph);
+
+  for (let node in obj) {
+    if (obj[node] === 0) queue.unshift(node);
+  }
+
+  while (queue.length > 0) {
+    let node = queue.pop();
+    ans.push(node);
+    for (let child of graph[node]) {
+      obj[child] = obj[child] - 1;
+      if (obj[child] === 0) queue.unshift(child);
+    }
+  }
+
+  return ans;
+};
+
+const findKids = (graph) => {
+  let obj = {};
+
+  for (let node in graph) {
+    let arr = graph[node];
+    if (!obj[node]) obj[node] = 0;
+    for (let child of arr) {
+      if (!obj[child]) obj[child] = 0;
+      obj[child] = obj[child] + 1;
+    }
+  }
+
+  return obj;
 };
