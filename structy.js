@@ -2359,3 +2359,65 @@ const findKids = (graph) => {
 
   return obj;
 };
+
+
+const safeCracking = (hints) => {
+  let ansStr = "";
+  let graph = createGraph(hints);
+  let obj = createCountObj(graph);
+  let queue = [];
+
+  for (let node in obj) {
+    if (obj[node] === 0) queue.push(node);
+  }
+
+  while (queue.length > 0) {
+    let node = queue.pop();
+    ansStr += node;
+    console.log("node", node);
+    for (let child of graph[node]) {
+      obj[child] -= 1;
+      if (obj[child] === 0) queue.unshift(child);
+    }
+  }
+
+  return ansStr;
+};
+
+//make a graph from the pairs
+// run graph through createCountObj
+//create queue
+//add the first zero key-value pair to the queue
+// create while loop that when the queue has length
+// it pops one value from the queue
+// adds it to an answer string
+// then checks to see if any of the other values in the obj have zero as a values
+// repeat until done
+//return string
+
+function createGraph(hints) {
+  let graph = {};
+
+  for (let hint of hints) {
+    let [first, second] = hint;
+    if (!graph[first]) graph[first] = [];
+    if (!(second in graph)) graph[second] = [];
+    graph[first].push(second);
+  }
+  return graph;
+}
+
+function createCountObj(graph) {
+  let obj = {};
+
+  for (let node in graph) {
+    if (!(String(node) in obj)) obj[node] = 0;
+
+    for (let child of graph[node]) {
+      if (!(child in obj)) obj[child] = 0;
+      obj[child] += 1;
+    }
+  }
+
+  return obj;
+}
