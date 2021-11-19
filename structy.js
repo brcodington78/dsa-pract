@@ -2482,3 +2482,27 @@ const inBounds = (row, col, grid) => {
 // if any return true return true
 
 //it will help to make a recursive helper function to deal with the logic above
+
+
+const tokenReplace = (s, tokens) => {
+  let ans = "";
+  let i = 0;
+  let j = 1;
+
+  while (i < s.length) {
+    if (s[i] !== "$") {
+      ans += s[i];
+      i++;
+      j = i + 1;
+    } else if (s[j] === "$") {
+      let newWord = s.slice(i, j + 1);
+      if (newWord in tokens) ans += tokens[newWord];
+      i = j + 1;
+      j = i + 1;
+    } else {
+      j++;
+    }
+  }
+
+  return ans;
+};
