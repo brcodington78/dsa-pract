@@ -2506,3 +2506,27 @@ const tokenReplace = (s, tokens) => {
 
   return ans;
 };
+
+const tokenTransform = (s, tokens) => {
+  let ans = [];
+  let i = 0;
+  let j = 1;
+
+  while (i < s.length) {
+    if (s[i] !== "$") {
+      ans.push(s[i]);
+      i++;
+      j = i + 1;
+    } else if (s[j] === "$") {
+      let key = s.slice(i, j + 1);
+      let word = tokens[key];
+      let evaluated = tokenTransform(word, tokens);
+      tokens[key] = evaluated;
+      ans.push(evaluated);
+      i = j + 1;
+      j = i + 1;
+    } else j++;
+  }
+
+  return ans.join("");
+};
