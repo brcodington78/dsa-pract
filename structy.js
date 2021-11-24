@@ -2530,3 +2530,63 @@ const tokenTransform = (s, tokens) => {
 
   return ans.join("");
 };
+
+const bestBridge = (grid) => {
+  let firstLandPos = findFirstIsland(grid);
+  let firstIslandPositions = findRestOfLands(grid, firstLandPos);
+  let visited = new Set();
+  let queue = []
+  
+  for (let islandPos of firstIslandPositions) {
+    let [i,j] = islandPos;
+    visited.add(i + ',' + j);
+    queue.unshift({pos: islandPos, count= 0})
+  }
+  
+  while(queue.length !== 0) {
+    let {pos, count} = queue.pop()
+  }
+  
+  
+  
+  
+};
+
+
+//returns first island in arr [i,j]
+const findFirstIsland = (grid) => {
+  let firstPos;
+  let landPosition = []
+  let visited = new Set()
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid[0].length; j++) {
+      let spot = grid[i][j];
+      if (spot === 'L') firstPos = [i, j]
+    }
+  }  
+  
+  
+}
+
+const findRestOfLands = (grid, pos, visited = new Set()) => {
+  let [i,j] = pos;
+  let lands = [];
+  let setPos = i + ',' + j
+  if(!(0 <= i && i < grid.length && 0 <= j && j < grid[0].length)) return [];
+  if (visited.has(setPos)) return [];
+  if (grid[i][j] === "W") return [];
+  
+  lands.push([i,j])
+  visited.add(setPos);
+  
+  let up = findRestOfLands(grid, [i - 1, j], visited)
+  let down = findRestOfLands(grid, [i + 1, j], visited)
+  let left = findRestOfLands(grid, [i, j - 1], visited)
+  let right = findRestOfLands(grid, [i, j + 1], visited)
+  
+  
+  return [...lands,...up,...down,...left, ...right]
+  
+}
+
+const findDistToIsland = (grid, positionsArr)
