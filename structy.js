@@ -2531,62 +2531,80 @@ const tokenTransform = (s, tokens) => {
   return ans.join("");
 };
 
+
 const bestBridge = (grid) => {
-  let firstLandPos = findFirstIsland(grid);
-  let firstIslandPositions = findRestOfLands(grid, firstLandPos);
-  let visited = new Set();
-  let queue = []
-  
-  for (let islandPos of firstIslandPositions) {
-    let [i,j] = islandPos;
-    visited.add(i + ',' + j);
-    queue.unshift({pos: islandPos, count= 0})
+  let firstIslandLands;
+
+  outerLoop: for (let r = 0; r < grid.length; r++) {
+    for (let c = 0; c < grid[0].length; c++) {
+      if (grid[r][c] === "L") {
+        firstIslandLands = traverseIsland(grid, r, c);
+        break outerLoop;
+      }
+    }
   }
-  
-  while(queue.length !== 0) {
-    let {pos, count} = queue.pop()
+
+  let queue = [];
+
+  for (let islandPiece of firstIslandLands) {
+    let [row, col] = islandPiece.split(",").map(Number);
+    queue.unshift({ row: row, col: col, count: 0 });
   }
-  
-  
-  
-  
+
+  while (queue.length > 0) {
+    let { row, col, count } = queue.pop();
+    let marker = grid[row][col];
+    let pos = row + "," + col;
+    if (marker === "L" && !firstIslandLands.has(pos)) return count - 1;
+
+    firstIslandLands.add(pos);
+
+    let deltas = [
+      [-1, 0],
+      [1, 0],
+      [0, -1],
+      [0, 1],
+    ];
+
+    for (let delta of deltas) {
+      let [x, y] = delta;
+      let deltaRow = row + x;
+      let deltaCol = col + y;
+      let deltaPos = deltaRow + "," + deltaCol;
+
+      if (
+        !firstIslandLands.has(deltaPos) &&
+        inBounds(grid, deltaRow, deltaCol)
+      ) {
+        queue.unshift({ row: deltaRow, col: deltaCol, count: count + 1 });
+      }
+    }
+  }
 };
 
+function inBounds(grid, r, c) {
+  let rBound = 0 <= r && r < grid.length;
+  let cBound = 0 <= c && c < grid[0].length;
 
-//returns first island in arr [i,j]
-const findFirstIsland = (grid) => {
-  let firstPos;
-  let landPosition = []
-  let visited = new Set()
-  for (let i = 0; i < grid.length; i++) {
-    for (let j = 0; j < grid[0].length; j++) {
-      let spot = grid[i][j];
-      if (spot === 'L') firstPos = [i, j]
-    }
-  }  
-  
-  
+  return rBound && cBound;
 }
 
-const findRestOfLands = (grid, pos, visited = new Set()) => {
-  let [i,j] = pos;
-  let lands = [];
-  let setPos = i + ',' + j
-  if(!(0 <= i && i < grid.length && 0 <= j && j < grid[0].length)) return [];
-  if (visited.has(setPos)) return [];
-  if (grid[i][j] === "W") return [];
-  
-  lands.push([i,j])
-  visited.add(setPos);
-  
-  let up = findRestOfLands(grid, [i - 1, j], visited)
-  let down = findRestOfLands(grid, [i + 1, j], visited)
-  let left = findRestOfLands(grid, [i, j - 1], visited)
-  let right = findRestOfLands(grid, [i, j + 1], visited)
-  
-  
-  return [...lands,...up,...down,...left, ...right]
-  
-}
+const traverseIsland = (grid, r, c, visited = new Set()) => {
+  let inBound = inBounds(grid, r, c);
+  if (!inBound) return visited;
+  let currentPos = grid[r][c];
+  if (currentPos === "W") return visited;
+  let pos = r + "," + c;
 
-const findDistToIsland = (grid, positionsArr)
+  if (visited.has(pos)) return visited;
+
+  visited.add(pos);
+
+  traverseIsland(grid, r - 1, c, visited);
+  traverseIsland(grid, r + 1, c, visited);
+  traverseIsland(grid, r, c + 1, visited);
+  traverseIsland(grid, r, c - 1, visited);
+
+  return visited;
+};
+
